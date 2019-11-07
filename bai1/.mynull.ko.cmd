@@ -1,0 +1,1 @@
+cmd_/root/bai1/mynull.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000 -T /usr/src/linux-headers-5.2.0-kali2-common/scripts/module-common.lds  --build-id  -o /root/bai1/mynull.ko /root/bai1/mynull.o /root/bai1/mynull.mod.o ;  true
