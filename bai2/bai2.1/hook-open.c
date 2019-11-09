@@ -15,6 +15,7 @@
 void **system_call_table_addr;
 asmlinkage int (*custom_syscall) (char *pathname, int flags);
 
+
 /*Make page writeable*/
 int make_rw(unsigned long address){
 	unsigned int level;
@@ -32,6 +33,7 @@ int make_ro(unsigned long address){
 	pte->pte = pte->pte &~_PAGE_RW;
 	return 0;
 }
+
 // Hook function, replace the system call OPEN
 // Take the same parameter as the system call OPEN
 asmlinkage int hook_function(const char *pathname, int flags)
@@ -40,12 +42,16 @@ asmlinkage int hook_function(const char *pathname, int flags)
 	printk(KERN_INFO "Calling process:%s\n",current->comm);
 	// Print openning file
 	printk(KERN_INFO "Openning file:%s\n",pathname);
-	return custom_syscall(pathname, flags);
+	int a = custom_syscall(pathname,flags);
+	return a;
+	//custom_syscall(pathname,flags);
 }
 
 static int __init entry_point(void){
+	printk(KERN_INFO "Open Hook loaded successfully..\n");
 	//system call table address
-	system_call_table_addr = (void*)0xffffffff81e00180;
+	system_call_table_addr = (void*)kallsyms_lookup_name("sys_call_table");
+	//(void*)0xffffffff81e001e0;
 	// Assign custom_syscall to system call OPEN
 	custom_syscall = system_call_table_addr[__NR_open];
 	//Disable page protection
@@ -56,6 +62,7 @@ static int __init entry_point(void){
 }
 
 static void  __exit exit_point(void){
+	printk(KERN_INFO "Unloaded Open Hook successfully\n");
 	// Restore system call OPEN
 	system_call_table_addr[__NR_open] = custom_syscall;
 	//Renable page protection

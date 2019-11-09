@@ -1,0 +1,1 @@
+cmd_/home/vinhlap/Desktop/Project2_OS-master/bai2/bai2.1/hook-open.ko := ld -r -m elf_x86_64 -z max-page-size=0x200000 -T ./scripts/module-common.lds --build-id  -o /home/vinhlap/Desktop/Project2_OS-master/bai2/bai2.1/hook-open.ko /home/vinhlap/Desktop/Project2_OS-master/bai2/bai2.1/hook-open.o /home/vinhlap/Desktop/Project2_OS-master/bai2/bai2.1/hook-open.mod.o ;  true

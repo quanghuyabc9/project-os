@@ -1,0 +1,1 @@
+cmd_/home/vinhlap/Desktop/Project2_OS-master/bai2/bai2.2/hook-write.ko := ld -r -m elf_x86_64 -z max-page-size=0x200000 -T ./scripts/module-common.lds --build-id  -o /home/vinhlap/Desktop/Project2_OS-master/bai2/bai2.2/hook-write.ko /home/vinhlap/Desktop/Project2_OS-master/bai2/bai2.2/hook-write.o /home/vinhlap/Desktop/Project2_OS-master/bai2/bai2.2/hook-write.mod.o ;  true
